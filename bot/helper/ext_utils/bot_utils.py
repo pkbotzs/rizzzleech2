@@ -481,32 +481,11 @@ def async_to_sync(func, *args, wait=True, **kwargs):
     return future.result() if wait else future
 
 
-# def new_thread(func):
-#     @wraps(func)
-#     def wrapper(*args, wait=False, **kwargs):
-#         future = run_coroutine_threadsafe(func(*args, **kwargs), bot_loop)
-#         return future.result() if wait else future
-#     return wrapper
-
-
-def start_thread(func):
+def new_thread(func):
     @wraps(func)
     def wrapper(*args, wait=False, **kwargs):
         future = run_coroutine_threadsafe(func(*args, **kwargs), bot_loop)
         return future.result() if wait else future
-
-    return wrapper
-
-
-def new_thread(func):
-    @wraps(func)
-    @start_thread
-    async def wrapper(*args, **kwargs):
-        try:
-            return await func(*args, **kwargs)
-        except Exception as e:
-            LOGGER.error(e, exc_info=True)
-
     return wrapper
 
 
