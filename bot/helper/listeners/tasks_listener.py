@@ -2,6 +2,7 @@
 from asyncio import create_subprocess_exec, sleep, Event
 from copy import deepcopy
 from datetime import datetime
+from genericpath import exists
 from html import escape
 from os import walk, path as ospath
 from time import time
@@ -20,7 +21,7 @@ from bot.helper.ext_utils.bot_utils import extra_btns, sync_to_async, get_readab
     is_mega_link, is_gdrive_link
 from bot.helper.ext_utils.db_handler import DbManger
 from bot.helper.ext_utils.exceptions import NotSupportedExtractionArchive
-from bot.helper.ext_utils.fs_utils import get_base_name, get_path_size, clean_download, clean_target, \
+from bot.helper.ext_utils.fs_utils import Watermark, get_base_name, get_path_size, clean_download, clean_target, \
     is_first_archive_split, is_archive, is_archive_split, join_files, edit_metadata
 from bot.helper.ext_utils.leech_utils import split_file, format_filename, get_document_type
 from bot.helper.ext_utils.task_manager import start_from_queued
@@ -31,6 +32,7 @@ from bot.helper.mirror_utils.status_utils.gdrive_status import GdriveStatus
 from bot.helper.mirror_utils.status_utils.metadata_status import MetadataStatus
 from bot.helper.mirror_utils.status_utils.queue_status import QueueStatus
 from bot.helper.mirror_utils.status_utils.rclone_status import RcloneStatus
+from bot.helper.mirror_utils.status_utils.watermark_status import WatermarkStatus
 from bot.helper.mirror_utils.status_utils.split_status import SplitStatus
 from bot.helper.mirror_utils.status_utils.telegram_status import TelegramStatus
 from bot.helper.mirror_utils.status_utils.zip_status import ZipStatus
@@ -276,6 +278,25 @@ class MirrorLeechListener:
                 self.newDir = ""
                 up_path = dl_path
 
+        wm_position, wm_size = self.user_dict.get('wmposition'), self.user_dict.get('wmsize')
+        if await aiopath.exists(f'wm/{self.user_id}.png') and wm_position and wm_size:
+            wm_path = up_path or dl_path
+            wm = Watermark(self)
+            async with download_dict_lock:
+                download_dict[self.uid] = WatermarkStatus(self, wm, gid)
+            if await aiopath.isfile(wm_path) and (await get_document_type(wm_path))[0]:
+                up_path = await wm.add_watermark(wm_path, wm_position, wm_size)
+                if self.suproc == 'cancelled':
+                    return
+            elif await aiopath.isdir(wm_path):
+                for dirpath, _, files in await sync_to_async(walk, wm_path):
+                    for file in files:
+                        if self.suproc == 'cancelled':
+                            return
+                        video_file = ospath.join(dirpath, file)
+                        if (await get_document_type(video_file))[0]:
+                            await wm.add_watermark(video_file, wm_position, wm_size)
+
         if metadata := self.user_dict.get('metadata') or config_dict['METADATA']:
             meta_path = up_path or dl_path
             self.newDir = f'{self.dir}10000'
@@ -336,7 +357,9 @@ class MirrorLeechListener:
 
         if not self.compress and not self.extract:
             up_path = dl_path
-
+        LOGGER.info('================================')
+        LOGGER.info(up_path)
+        LOGGER.info('================================')
         up_dir, up_name = up_path.rsplit('/', 1)
         size = await get_path_size(up_dir)
         if self.isLeech:

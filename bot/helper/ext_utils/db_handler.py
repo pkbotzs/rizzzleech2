@@ -43,18 +43,22 @@ class DbManger:
                 del row['_id']
                 thumb_path = f'Thumbnails/{uid}.jpg'
                 rclone_path = f'rclone/{uid}.conf'
+                wm_path = f'wm/{uid}.png'
                 if row.get('thumb'):
-                    if not await aiopath.exists('Thumbnails'):
-                        await makedirs('Thumbnails')
+                    await makedirs('Thumbnails', exist_ok=True)
                     async with aiopen(thumb_path, 'wb+') as f:
                         await f.write(row['thumb'])
                     row['thumb'] = thumb_path
                 if row.get('rclone'):
-                    if not await aiopath.exists('rclone'):
-                        await makedirs('rclone')
+                    await makedirs('rclone', exist_ok=True)
                     async with aiopen(rclone_path, 'wb+') as f:
                         await f.write(row['rclone'])
                     row['rclone'] = rclone_path
+                if row.get('watermark'):
+                    await makedirs('watermark', exist_ok=True)
+                    async with aiopen(wm_path, 'wb+') as f:
+                        await f.write(row['watermark'])
+                    row['watermark'] = wm_path
                 user_data[uid] = row
             LOGGER.info("Users data has been imported from Database")
         # Rss Data
@@ -134,7 +138,7 @@ class DbManger:
         if self.__err:
             return
         return [doc['_id'] async for doc in self.__db.pm_users[bot_id].find({})]
-        
+
     async def update_pm_users(self, user_id):
         if self.__err:
             return
@@ -142,13 +146,13 @@ class DbManger:
             await self.__db.pm_users[bot_id].insert_one({'_id': user_id})
             LOGGER.info(f'New PM User Added : {user_id}')
         self.__conn.close
-        
+
     async def rm_pm_user(self, user_id):
         if self.__err:
             return
         await self.__db.pm_users[bot_id].delete_one({'_id': user_id})
         self.__conn.close
-        
+
     async def rss_update_all(self):
         if self.__err:
             return

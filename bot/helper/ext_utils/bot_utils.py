@@ -8,7 +8,7 @@ from datetime import datetime
 from functools import partial, wraps
 from html import escape
 from os import path as ospath
-from re import match as re_match
+from re import match as re_match, search as re_search
 from subprocess import run as srun
 from time import time
 from uuid import uuid4
@@ -53,6 +53,7 @@ class MirrorStatus:
     STATUS_EXTRACTING  = "Extract"
     STATUS_SPLITTING   = "Split"
     STATUS_METADATA    = "MetaEdit"
+    STATUS_WATERMARK    = "Watermark"
     STATUS_CHECKING    = "CheckUp"
     STATUS_SEEDING     = "Seed"
 
@@ -157,6 +158,8 @@ def get_all_versions():
     try:
         result = srun([FFMPEG_NAME, '-version'], capture_output=True, text=True)
         vf = result.stdout.split('\n')[0].split(' ')[2].split('ubuntu')[0]
+        if '+' in vf:
+            vf = vf.split('+')[0]
     except FileNotFoundError:
         vf = ''
     try:
@@ -478,11 +481,32 @@ def async_to_sync(func, *args, wait=True, **kwargs):
     return future.result() if wait else future
 
 
-def new_thread(func):
+# def new_thread(func):
+#     @wraps(func)
+#     def wrapper(*args, wait=False, **kwargs):
+#         future = run_coroutine_threadsafe(func(*args, **kwargs), bot_loop)
+#         return future.result() if wait else future
+#     return wrapper
+
+
+def start_thread(func):
     @wraps(func)
     def wrapper(*args, wait=False, **kwargs):
         future = run_coroutine_threadsafe(func(*args, **kwargs), bot_loop)
         return future.result() if wait else future
+
+    return wrapper
+
+
+def new_thread(func):
+    @wraps(func)
+    @start_thread
+    async def wrapper(*args, **kwargs):
+        try:
+            return await func(*args, **kwargs)
+        except Exception as e:
+            LOGGER.error(e, exc_info=True)
+
     return wrapper
 
 
