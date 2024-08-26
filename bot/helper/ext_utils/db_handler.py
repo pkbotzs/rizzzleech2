@@ -44,21 +44,24 @@ class DbManger:
                 thumb_path = f'Thumbnails/{uid}.jpg'
                 rclone_path = f'rclone/{uid}.conf'
                 wm_path = f'wm/{uid}.png'
-                if row.get('thumb'):
-                    await makedirs('Thumbnails', exist_ok=True)
-                    async with aiopen(thumb_path, 'wb+') as f:
-                        await f.write(row['thumb'])
-                    row['thumb'] = thumb_path
-                if row.get('rclone'):
-                    await makedirs('rclone', exist_ok=True)
-                    async with aiopen(rclone_path, 'wb+') as f:
-                        await f.write(row['rclone'])
-                    row['rclone'] = rclone_path
-                if row.get('watermark'):
-                    await makedirs('wm', exist_ok=True)
-                    async with aiopen(wm_path, 'wb+') as f:
-                        await f.write(row['watermark'])
-                    row['watermark'] = wm_path
+                try:
+                    if row.get('thumb'):
+                        await makedirs('Thumbnails', exist_ok=True)
+                        async with aiopen(thumb_path, 'wb+') as f:
+                            await f.write(row['thumb'])
+                        row['thumb'] = thumb_path
+                    if row.get('rclone'):
+                        await makedirs('rclone', exist_ok=True)
+                        async with aiopen(rclone_path, 'wb+') as f:
+                            await f.write(row['rclone'])
+                        row['rclone'] = rclone_path
+                    if row.get('watermark'):
+                        await makedirs('wm', exist_ok=True)
+                        async with aiopen(wm_path, 'wb+') as f:
+                            await f.write(row['watermark'])
+                        row['watermark'] = wm_path
+                except:
+                    continue
                 user_data[uid] = row
             LOGGER.info("Users data has been imported from Database")
         # Rss Data
@@ -120,6 +123,8 @@ class DbManger:
             del data['thumb']
         if data.get('rclone'):
             del data['rclone']
+        if data.get('watermark'):
+            del data['watermark']
         await self.__db.users[bot_id].replace_one({'_id': user_id}, data, upsert=True)
         self.__conn.close
 
