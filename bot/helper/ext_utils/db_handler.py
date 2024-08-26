@@ -55,7 +55,7 @@ class DbManger:
                         await f.write(row['rclone'])
                     row['rclone'] = rclone_path
                 if row.get('watermark'):
-                    await makedirs('watermark', exist_ok=True)
+                    await makedirs('wm', exist_ok=True)
                     async with aiopen(wm_path, 'wb+') as f:
                         await f.write(row['watermark'])
                     row['watermark'] = wm_path
