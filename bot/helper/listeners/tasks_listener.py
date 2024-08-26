@@ -357,9 +357,6 @@ class MirrorLeechListener:
 
         if not self.compress and not self.extract:
             up_path = dl_path
-        LOGGER.info('================================')
-        LOGGER.info(up_path)
-        LOGGER.info('================================')
         up_dir, up_name = up_path.rsplit('/', 1)
         size = await get_path_size(up_dir)
         if self.isLeech:
