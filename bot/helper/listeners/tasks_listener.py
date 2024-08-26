@@ -279,7 +279,7 @@ class MirrorLeechListener:
                 up_path = dl_path
 
         wm_position, wm_size = self.user_dict.get('wmposition'), self.user_dict.get('wmsize')
-        if await aiopath.exists(f'wm/{self.user_id}.png') and wm_position and wm_size:
+        if config_dict['ENBALE_WATERMARK'] and await aiopath.exists(f'wm/{self.user_id}.png') and wm_position and wm_size:
             wm_path = up_path or dl_path
             wm = Watermark(self)
             async with download_dict_lock:

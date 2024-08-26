@@ -379,6 +379,9 @@ WEB_PINCODE = WEB_PINCODE.lower() == 'true'
 AS_DOCUMENT = environ.get('AS_DOCUMENT', '')
 AS_DOCUMENT = AS_DOCUMENT.lower() == 'true'
 
+ENBALE_WATERMARK = environ.get('ENBALE_WATERMARK', '')
+ENBALE_WATERMARK = ENBALE_WATERMARK.lower() == 'true'
+
 USER_TD_MODE = environ.get('USER_TD_MODE', '')
 USER_TD_MODE = USER_TD_MODE.lower() == 'true'
 
@@ -436,6 +439,9 @@ if len(RCLONE_SERVE_USER) == 0:
 RCLONE_SERVE_PASS = environ.get('RCLONE_SERVE_PASS', '')
 if len(RCLONE_SERVE_PASS) == 0:
     RCLONE_SERVE_PASS = ''
+
+FFMPEG_PRESET = environ.get('FFMPEG_PRESET', 'ultrafast')
+FFMPEG_CRF = environ.get('FFMPEG_CRF', '28')
 
 STORAGE_THRESHOLD = environ.get('STORAGE_THRESHOLD', '')
 STORAGE_THRESHOLD = '' if len(STORAGE_THRESHOLD) == 0 else float(STORAGE_THRESHOLD)
@@ -604,6 +610,9 @@ if len(MDL_TEMPLATE) == 0:
 
 config_dict = {'ANIME_TEMPLATE': ANIME_TEMPLATE,
                'AS_DOCUMENT': AS_DOCUMENT,
+               'ENBALE_WATERMARK': ENBALE_WATERMARK,
+               'FFMPEG_CRF': FFMPEG_CRF,
+               'FFMPEG_PRESET': FFMPEG_PRESET,
                'AUTHORIZED_CHATS': AUTHORIZED_CHATS,
                'AUTO_DELETE_MESSAGE_DURATION': AUTO_DELETE_MESSAGE_DURATION,
                'BASE_URL': BASE_URL,

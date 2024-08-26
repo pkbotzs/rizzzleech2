@@ -215,15 +215,31 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
         image = wm_path
         text = f"㊂ Select Position for WatermarkL:"
         pos_dict = {'5:5': 'Top Left',
+                    '(main_w-overlay_w)/2:5': 'Top Center',
                     'main_w-overlay_w-5:5': 'Top Right',
+                    '(main_w-overlay_w)/2:(main_h-overlay_h)/2': 'Center',
                     '5:main_h-overlay_h': 'Bottom Left',
+                    '(main_w-overlay_w)/2:main_h-overlay_h-5': 'Bottom Center',
                     'main_w-overlay_w-5:main_h-overlay_h-5': 'Bottom Right'}
-        possitions = [('Top Left', 'tl'), ('Top Right', 'tr'), ('Bottom Left', 'bl'), ('Bottom Right', 'br')]
+        possitions = [('Top Left', 'tl'),
+                      ('Top Center', 'tc'),
+                      ('Top Right', 'tr'),
+                      ('Center', 'ct'),
+                      ('Bottom Left', 'bl'),
+                      ('Bottom Center', 'bc'),
+                      ('Bottom Right', 'br')]
         wm_possition = pos_dict.get(user_dict.get('wmposition', 'None'))
-        [buttons.ibutton(f'{bkey}{" ✅" if wm_possition == bkey else ""}', f'userset {user_id} wmposition {bdata}') for bkey, bdata in possitions]
+        for bkey, bdata in possitions:
+            if bkey.startswith('Top'):
+                button_possition = 'header'
+            elif bkey.startswith('Bottom'):
+                button_possition = 'footer'
+            else:
+                button_possition = None
+            buttons.ibutton(f'{bkey}{" ✅" if wm_possition == bkey else ""}', f'userset {user_id} wmposition {bdata}', button_possition)
         buttons.ibutton("Back", f"userset {user_id} wmback", "footer")
         buttons.ibutton("Close", f"userset {user_id} close", "footer")
-        button = buttons.build_menu(2)
+        button = buttons.build_menu(1, 3, f_cols=3)
     elif key == 'wmsize':
         image = wm_path
         text = f"㊂ Select Size for WatermarkL:"
@@ -243,8 +259,11 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
         elif key == 'watermark':
             image = wm_path
             pos_dict = {'5:5': 'Top Left',
+                        '(main_w-overlay_w)/2:5': 'Top Center',
                         'main_w-overlay_w-5:5': 'Top Right',
+                        '(main_w-overlay_w)/2:(main_h-overlay_h)/2': 'Center',
                         '5:main_h-overlay_h': 'Bottom Left',
+                        '(main_w-overlay_w)/2:main_h-overlay_h-5': 'Bottom Center',
                         'main_w-overlay_w-5:main_h-overlay_h-5': 'Bottom Right'}
             set_exist = await aiopath.exists(wm_path)
             text += f"➲ <b>Watermark :</b> <i>{'' if set_exist else 'Not'} Exists</i>\n\n"
@@ -586,8 +605,11 @@ async def edit_user_settings(client, query):
     elif data[2] == 'wmposition':
         await query.answer()
         pos_dict = {'tl': '5:5',
+                    'tc': '(main_w-overlay_w)/2:5',
                     'tr': 'main_w-overlay_w-5:5',
+                    'ct': '(main_w-overlay_w)/2:(main_h-overlay_h)/2',
                     'bl': '5:main_h-overlay_h',
+                    'bc': '(main_w-overlay_w)/2:main_h-overlay_h-5',
                     'br': 'main_w-overlay_w-5:main_h-overlay_h-5'}
         update_user_ldata(user_id, 'wmposition', pos_dict[data[3]])
         if DATABASE_URL:

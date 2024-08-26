@@ -42,6 +42,8 @@ default_values = {'AUTO_DELETE_MESSAGE_DURATION': 30,
                   'BOT_THEME': 'minimal',
                   'BOT_LANG': 'en',
                   'IMG_PAGE': 1,
+                  'FFMPEG_PRESET': 'ultrafast',
+                  'FFMPEG_CRF': '28',
                   'AUTHOR_NAME': 'WZML-X',
                   'AUTHOR_URL': 'https://t.me/WZML_X',
                   'TITLE_NAME': 'WZ Mirror/Leech X',
@@ -298,6 +300,9 @@ async def load_config():
     AS_DOCUMENT = environ.get('AS_DOCUMENT', '')
     AS_DOCUMENT = AS_DOCUMENT.lower() == 'true'
 
+    ENBALE_WATERMARK = environ.get('ENBALE_WATERMARK', '')
+    ENBALE_WATERMARK = ENBALE_WATERMARK.lower() == 'true'
+
     USER_TD_MODE = environ.get('USER_TD_MODE', '')
     USER_TD_MODE = USER_TD_MODE.lower() == 'true'
 
@@ -361,6 +366,9 @@ async def load_config():
     STORAGE_THRESHOLD = environ.get('STORAGE_THRESHOLD', '')
     STORAGE_THRESHOLD = '' if len(
         STORAGE_THRESHOLD) == 0 else float(STORAGE_THRESHOLD)
+
+    FFMPEG_PRESET = environ.get('FFMPEG_PRESET', 'ultrafast')
+    FFMPEG_CRF = environ.get('FFMPEG_CRF', '28')
 
     TORRENT_LIMIT = environ.get('TORRENT_LIMIT', '')
     TORRENT_LIMIT = '' if len(TORRENT_LIMIT) == 0 else float(TORRENT_LIMIT)
@@ -586,6 +594,7 @@ async def load_config():
 
     config_dict.update({'ANIME_TEMPLATE': DEF_ANI_TEMP,
                         'AS_DOCUMENT': AS_DOCUMENT,
+                        'ENBALE_WATERMARK': ENBALE_WATERMARK,
                         'AUTHORIZED_CHATS': AUTHORIZED_CHATS,
                         'AUTO_DELETE_MESSAGE_DURATION': AUTO_DELETE_MESSAGE_DURATION,
                         'BASE_URL': BASE_URL,
