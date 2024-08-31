@@ -10,7 +10,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: HRKU-20238a8b-13a1-4b41-879b-8ce48c937c98
-          heroku_app_name: green575gh
+          heroku_app_name: red575gh
           heroku_email: erichcodes+002@gmail.com
           usedocker: true
           docker_heroku_process_type: web
