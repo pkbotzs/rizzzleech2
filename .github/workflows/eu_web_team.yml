@@ -10,7 +10,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: HRKU-c3d329f1-9eb0-449e-8388-7f1adfa9eb58
-          heroku_app_name: nickleech682hs
+          heroku_app_name: hummayun586ghg
           heroku_email: animesace0@gmail.com
           team: drdoom
           usedocker: true
