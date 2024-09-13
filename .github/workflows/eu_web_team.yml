@@ -10,7 +10,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: HRKU-4d4f576b-2a9f-49b8-b3b9-2e059ae4df01
-          heroku_app_name: bash2hshs
+          heroku_app_name: free575hvv
           heroku_email: eunhang279+4jpky@outlook.com
           team: anjux8283
           usedocker: true
