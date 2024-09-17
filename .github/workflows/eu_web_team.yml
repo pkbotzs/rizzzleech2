@@ -10,7 +10,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: HRKU-f89b31e0-acae-49a8-b572-d0e7868f2434
-          heroku_app_name: cszleech628jsn
+          heroku_app_name: aceon628jsn
           heroku_email: madflixbotz31@hotmail.com
           team: ramnuz929
           usedocker: true
