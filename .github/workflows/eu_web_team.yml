@@ -9,10 +9,9 @@ jobs:
       - uses: actions/checkout@main
       - uses: akhileshns/heroku-deploy@master
         with:
-          heroku_api_key: HRKU-f89b31e0-acae-49a8-b572-d0e7868f2434
-          heroku_app_name: cskleech739hs
-          heroku_email: madflixbotz31@hotmail.com
-          team: ramnuz929
+          heroku_api_key: HRKU-4129d621-87a6-4d23-9458-a082c4633cd9
+          heroku_app_name: nill685gjv
+          heroku_email: jordansantos7463+t5jls@outlook.com
           usedocker: true
           docker_heroku_process_type: worker
           stack: "container"
