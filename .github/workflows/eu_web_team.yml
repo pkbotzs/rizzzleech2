@@ -10,7 +10,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: HRKU-4129d621-87a6-4d23-9458-a082c4633cd9
-          heroku_app_name: nill685gjv
+          heroku_app_name: ocean685gjv
           heroku_email: jordansantos7463+t5jls@outlook.com
           usedocker: true
           docker_heroku_process_type: worker
