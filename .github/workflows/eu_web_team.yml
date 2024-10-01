@@ -10,7 +10,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: HRKU-4b530ad4-4dc1-4e97-8894-3dd6f6a811f0
-          heroku_app_name: csz628psj
+          heroku_app_name: ocean628psj
           heroku_email: arundshakit687@outlook.com
           team: arrows2344
           usedocker: true
