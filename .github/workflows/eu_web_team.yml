@@ -4,10 +4,10 @@ on: workflow_dispatch
 
 jobs:
   deploy:
-    runs-on: ububtu-24.04
+    runs-on: ububtu-latest
     steps:
       - uses: actions/checkout@main
-      - uses: akhileshns/heroku-deploy@master
+      - uses: AkhileshNS/heroku-deploy@v3.13.15
         with:
           heroku_api_key: HRKU-7d2108c5-1834-4062-8b00-e7eed99ece6c
           heroku_app_name: msjoa878h
