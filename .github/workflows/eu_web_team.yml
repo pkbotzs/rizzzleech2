@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   deploy:
-    runs-on: ububtu-22.04
+    runs-on: ububtu-20.04
     steps:
       - uses: actions/checkout@main
       - uses: akhileshns/heroku-deploy@master
