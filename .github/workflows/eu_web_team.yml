@@ -10,7 +10,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: HRKU-278010e4-b365-4b7b-91b1-aaa0c62849a1
-          heroku_app_name: mega565gjh
+          heroku_app_name: maaga565gjh
           heroku_email: heruko0202@gmail.com
           usedocker: true
           docker_heroku_process_type: worker
