@@ -1,16 +1,16 @@
-name: Manually Deploy to Heroku
+name: Manually Deploy
 
 on: workflow_dispatch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ububtu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12
+      - uses: actions/checkout@main
+      - uses: AkhileshNS/heroku-deploy@v3.13.15
         with:
-          heroku_api_key: HRKU-d74312a0-dfc5-4867-ad5a-ebecc0acc02d
-          heroku_app_name: msjoa778h6j
+          heroku_api_key: HRKU-7d2108c5-1834-4062-8b00-e7eed99ece6c
+          heroku_app_name: msjoa878h
           heroku_email: chanchalverma3645@outlook.com
           team: levi
           usedocker: true
