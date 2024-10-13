@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@main
       - uses: akhileshns/heroku-deploy@master
         with:
-          heroku_api_key: HRKU-a63732f8-c91e-4d30-a389-ff2485f8852f
+          heroku_api_key: HRKU-278010e4-b365-4b7b-91b1-aaa0c62849a1
           heroku_app_name: mega565gjh
           heroku_email: heruko0202@gmail.com
           usedocker: true
