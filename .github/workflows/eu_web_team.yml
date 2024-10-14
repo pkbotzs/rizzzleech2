@@ -1,18 +1,19 @@
-name: Manually Deploy TEAM WEB EU
+name: Deploy to Heroku GANDU
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch: {}
 
 jobs:
   deploy:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v4
       - uses: 5hojib/heroku-deploy-action@v2
         with:
-          heroku_api_key: "HRKU-a63732f8-c91e-4d30-a389-ff2485f8852f"
-          heroku_app_name: "msjoa879s"
-          heroku_email: "heruko0202@gmail.com"
+          heroku_api_key: 'HRKU-7a78efb9-9f12-4c42-a126-0ee9379cca81'
+          heroku_app_name: 'sojagandu11'
+          heroku_email: 'heruko0202@gmail.com'
           usedocker: true
-          docker_heroku_process_type: worker
+          docker_heroku_process_type: web
           stack: "container"
-          region: "eu"
+          region: "us"
