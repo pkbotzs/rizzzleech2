@@ -7,11 +7,11 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@main
-      - uses: AkhileshNS/heroku-deploy@v3.13.15
+      - uses: 5hojib/heroku-deploy-action@v2
         with:
-          heroku_api_key: HRKU-a63732f8-c91e-4d30-a389-ff2485f8852f
-          heroku_app_name: msjoa879s
-          heroku_email: heruko0202@gmail.com
+          heroku_api_key: "HRKU-a63732f8-c91e-4d30-a389-ff2485f8852f"
+          heroku_app_name: "msjoa879s"
+          heroku_email: "heruko0202@gmail.com"
           usedocker: true
           docker_heroku_process_type: worker
           stack: "container"
