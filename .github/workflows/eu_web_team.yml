@@ -11,7 +11,7 @@ jobs:
       - uses: 5hojib/heroku-deploy-action@v2
         with:
           heroku_api_key: 'HRKU-7a78efb9-9f12-4c42-a126-0ee9379cca81'
-          heroku_app_name: 'sojagandu11'
+          heroku_app_name: 'nothing11'
           heroku_email: 'heruko0202@gmail.com'
           usedocker: true
           docker_heroku_process_type: web
