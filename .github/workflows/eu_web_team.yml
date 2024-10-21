@@ -11,7 +11,7 @@ jobs:
       - uses: 5hojib/heroku-deploy-action@v2
         with:
           heroku_api_key: 'HRKU-1305f9c4-74bc-4f99-a224-cd2251f7de15'
-          heroku_app_name: 'blue629sjn'
+          heroku_app_name: 'red629sjn'
           heroku_email: 'kenneth88gonzal.es.79.4.7@googlemail.com'
           team:
           usedocker: true
