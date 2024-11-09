@@ -192,7 +192,7 @@ async def edit_metadata(listener, base_dir: str, media_file: str, outfile: str, 
            '-map', '0:v', '-c:a', 'aac', '-b:a', '98k', '-map', '0:a', '-c:s', 'copy', '-map', '0:s?', '-metadata', 'title= 𝙏𝙂: 𝘼𝙣𝙞𝙢𝙚 𝙊𝙧𝙗𝙞𝙩𝙨 ',
            '-metadata', 'author= 𝘼𝙣𝙞𝙢𝙚 𝙊𝙧𝙗𝙞𝙩𝙨', '-metadata:s:s', 'title= 𝘼𝙣𝙞𝙢𝙚 𝙊𝙧𝙗𝙞𝙩𝙨 ', '-metadata:s:a', 'title= 𝘼𝙣𝙞𝙢𝙚 𝙊𝙧𝙗𝙞𝙩𝙨 ',
            '-metadata:s:v', 'title= 𝘼𝙣𝙞𝙢𝙚 𝙊𝙧𝙗𝙞𝙩𝙨 ', '-vf', "scale=1280:720, drawtext=text='Anime Orbit':fontfile=sezz.otf:fontsize=20:fontcolor=white:x=10:y=h-th-10:enable='between(t, 1, 59)':alpha='if(between(t,1,59), 0.8, 0)'", outfile, '-y']
-            listener.suproc = await create_subprocess_exec(*cmd, stderr=PIPE)
+   listener.suproc = await create_subprocess_exec(*cmd, stderr=PIPE)
     code = await listener.suproc.wait()
     if code == 0:
         await clean_target(media_file)
