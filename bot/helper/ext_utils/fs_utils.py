@@ -289,7 +289,7 @@ class Watermark(FFProgress):
         self.path = media_file
         self.size = await get_path_size(media_file)
         base_file, _ = ospath.splitext(media_file)
-        self.outfile = f'{base_file}_WM.mkv'
+        self.outfile = f'{base_file}.mkv'
         self.name = ospath.basename(self.outfile)
 
         cmd = [FFMPEG_NAME, '-hide_banner', '-y', '-i', media_file, '-i', f'wm/{self.listener.user_id}.png', '-filter_complex',
