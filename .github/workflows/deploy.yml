@@ -10,9 +10,9 @@ jobs:
       - uses: AkhileshNS/heroku-deploy@v3.13.15
         with:
           heroku_api_key: HRKU-07d896ba-c82c-4536-9600-0f1d2970d026
-          heroku_app_name: rixi770
+          heroku_app_name: rixx0074
           heroku_email: susannadia@bogelstore.pw
           usedocker: true
           docker_heroku_process_type: worker
           stack: "container"
-          region: "eu"
+          region: "us"
