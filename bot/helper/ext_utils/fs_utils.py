@@ -195,7 +195,7 @@ async def edit_metadata(listener, base_dir: str, media_file: str, outfile: str, 
         await move(outfile, base_dir)
     else:
         await clean_target(outfile)
-        
+         LOGGER.error('%s. Changing metadata failed, Path %s', (await listener.suproc.stderr.read()).decode(), media_file)
 
 
 async def get_media_info(path: str):
@@ -300,5 +300,5 @@ class Watermark(FFProgress):
             self.suproc = 'cancelled'
             return False
         await clean_target(self.outfile)
-        
+        LOGGER.error('%s. Watermarking failed, Path %s', (await self.listener.suproc.stderr.read()).decode(), media_file)
         return False
