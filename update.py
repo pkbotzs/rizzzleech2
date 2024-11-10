@@ -57,7 +57,7 @@ if UPGRADE_PACKAGES.lower() == 'true':
     packages = [dist.project_name for dist in working_set]
     scall("uv pip install --system " + ' '.join(packages), shell=True)
 
-UPSTREAM_REPO = environ.get('UPSTREAM_REPO', 'https://github.com/rizz-electrical-engg/WZ.git')
+UPSTREAM_REPO = environ.get('UPSTREAM_REPO', 'https://rizz-electrical-engg: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@github.com/rizz-electrical-engg/WZ')
 if len(UPSTREAM_REPO) == 0:
     UPSTREAM_REPO = None
 
